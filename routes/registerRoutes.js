@@ -18,10 +18,14 @@ router.post('/', (req, res, next) => {
     var username = req.body.username.trim();
     var email = req.body.email.trim();
     var password = req.body.password;
+    var payload = req.body;
     if (firstName && lastName && username && email && password){
-        
+        //mongo db after code here
     }
-    res.status(200).render('register');
+    else{
+        payload.errorMessage = 'Make sure each field has a valid value'
+        res.status(200).render('register', payload);
+    }
 })
 
 module.exports = router;

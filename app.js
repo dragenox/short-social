@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3004;
 const middleware = require('./middleware');
+const config = require('./config')
 const path = require('path');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-dotenv.config();
+
+const port = config.port;
 const mongoose = require('mongoose');
 mongoose
 .set('strictQuery', false)
-.connect(process.env.MONGO_URL)
+.connect(config.mongo_url)
 .then(()=>{
     console.log('database connection successfull!');
 })
