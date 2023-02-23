@@ -1,21 +1,11 @@
 const express = require('express');
 const app = express();
+const config = require('./config');
 const middleware = require('./middleware');
-const config = require('./config')
+const port = config.port;
 const path = require('path');
 const bodyParser = require('body-parser');
-
-const port = config.port;
-const mongoose = require('mongoose');
-mongoose
-.set('strictQuery', false)
-.connect(config.mongo_url)
-.then(()=>{
-    console.log('database connection successfull!');
-})
-.catch((err)=>{
-    console.log('database connection error: ' + err);
-})
+const database = require('./database');
 
 const server = app.listen(port, () => {
     console.log('Server listening on port ' + port);

@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
+const User = require('../schemas/UserSchema');
 
 server.set('view engine', 'pug');
 server.set('views', 'views');
@@ -19,11 +20,19 @@ router.post('/', (req, res, next) => {
     var email = req.body.email.trim();
     var password = req.body.password;
     var payload = req.body;
-    if (firstName && lastName && username && email && password){
-        //mongo db after code here
+    if (firstName && lastName && username && email && password) {
+        User.findOne({
+            $or: [
+                { username: username },
+                { email: email }
+            ]
+        })
+        .then((user)=>{
+            console.log('value is: ' + user);
+        })
     }
-    else{
-        payload.errorMessage = 'Make sure each field has a valid value'
+    else {
+        payload.errorMessage = 'Make sure each field has a valid value';
         res.status(200).render('register', payload);
     }
 })
