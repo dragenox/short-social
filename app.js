@@ -32,7 +32,7 @@ app.use('/register', registerRoute);
 
 app.get('/', middleware.requireLogin, (req, res, next) => {
     var payload = {
-        pageTitle: "Home"
+        pageTitle: 'Home'
     }
     res.status(200).render('home', payload);
-})
+});
